@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * A class written to support the TicTacToe Game.
  *
@@ -17,18 +20,44 @@ public class Square {
     private int col;
     private boolean isWinningSquare;
 
+    private TicTacToeViewer viewer;
+    Image x;
+    Image y;
+
     /**
      * Constructor to initialize one Square of the
      * TicTacToe board
      * @param row the row the square is in
      * @param col the column the square is in
      */
-    public Square(int row, int col) {
+    public Square(int row, int col,TicTacToeViewer viewer) {
         this.row = row;
         this.col = col;
+        this.viewer = viewer;
 
         this.marker = TicTacToe.BLANK;
         this.isWinningSquare = false;
+        x = new ImageIcon("Resources/X.png").getImage();
+        y = new ImageIcon("Resources/O.png").getImage();
+    }
+
+    public void drawSquare(Graphics g)
+    {
+        g.drawRect(col * 100 + 100, row * 100 + 100, 100, 100);
+        if (this.isWinningSquare == true)
+        {
+            g.setColor(Color.GREEN);
+            g.fillRect(col * 100 + 100, row * 100 + 100, 100, 100);
+            g.setColor(Color.BLACK);
+        }
+        if (marker.equals("X"))
+        {
+            g.drawImage( x,col * 100 + 100,row * 100 + 100, 100, 100, viewer);
+        }
+        else if (marker.equals("O"))
+        {
+            g.drawImage(y, col * 100 + 100,row * 100 + 100, 100, 100, viewer);
+        }
     }
 
     /******************** Getters and Setters ********************/
